@@ -1,8 +1,8 @@
 import os
 
 ####
-# for windows the temp files end with '~'
-# for linux, uncomment the line below
+# in windows the temp files end with '~'
+# in linux, temp files start with '.'
 
 # get file directory (that is the dir to be traversed)
 file_dir = os.path.dirname(os.path.realpath(__file__))
