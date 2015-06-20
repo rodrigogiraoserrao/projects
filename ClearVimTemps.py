@@ -2,7 +2,6 @@ import os
 
 ####
 # in windows the temp files end with '~'
-# in linux, temp files start with '.'
 
 # get file directory (that is the dir to be traversed)
 file_dir = os.path.dirname(os.path.realpath(__file__))
@@ -10,7 +9,6 @@ file_dir = os.path.dirname(os.path.realpath(__file__))
 for root, dirs, files in os.walk(file_dir):
     for filename in files:
         if filename.endswith("~") and filename[:-1] in files:  # windows version
-        # if filename.startswith(".") and filename[1:] in files:  # linux version
             full_file_path = os.path.join(root, filename)
             try:
                 os.remove(full_file_path)
