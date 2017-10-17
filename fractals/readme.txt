@@ -6,3 +6,5 @@ For the Mandelbrot set, clicking the screen will zoom in the fractal on that poi
 For the Julia set, clicking a point will create its filled Julia set; hitting the spacebar presents the user
   with the initial white screen with the 2 axis; hitting the left arrow goes back to previous filled Julia sets,
   hitting the right arrow goes forward again.
+
+Note that the fractal of mandelbrotEvolutive becomes better than the one of mandelbrotConstant as you zoom in.
