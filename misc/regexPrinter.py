@@ -1,6 +1,6 @@
 """Implements a parser for a subset of the regular expressions grammar
         The parser returns a generator for all the strings recognized
-        by a given regular expression.abs
+        by a given regular expression.
 
 The grammar parsed is as follows:
 
