@@ -34,16 +34,6 @@ For each production rule R, a function parse_R has been implemented,
 
 from enum import Enum
 
-def _get_k_repetitions(values, k):
-    if k == 1:
-        return [v for v in values]
-    else:
-        t = _get_k_repetitions(values, k-1)
-        result = []
-        for v in values:
-            result += [v+tt for tt in t]
-        return result
-
 class Token(Enum):
     # enumerator quantifiers
     TIMES = "*"
@@ -293,9 +283,7 @@ if __name__ == "__main__":
         s = input(" >> ")
         if not s:
             break
-        t = tokenize(s)
-        tree = parse_expr(t)
         i = 1
-        for v in tree.print():
+        for v in printRegex(s).print():
             print("{}: {}".format(i, v))
             i += 1
