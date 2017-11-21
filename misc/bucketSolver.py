@@ -15,9 +15,14 @@ def solve(sizes, target):
             print_solution(sizes, path)
             break
         # create all possible new positions by completely filling a bucket
+        # and by emptying it
         for i in range(len(sizes)):
             new = pos[:i] + (sizes[i],) + pos[i+1:]
-            if new not in paths.keys ():
+            if new not in paths.keys():
+                paths[new] = pos
+                stack.append(new)
+            new = pos[:i] + (0,) + pos[i+1:]
+            if new not in paths.keys():
                 paths[new] = pos
                 stack.append(new)
         # create all possible new positions by filling a bucket with another one
@@ -48,7 +53,11 @@ def print_solution(sizes, path):
         # find what buckets changed to find what was done
         changes = [j for j in range(len(sizes)) if path[i-1][j] != path[i][j]]
         if len(changes) == 1:
-            explanation = "fill the {} bucket".format(sizes[changes[0]])
+            # did we empty it or fill it?
+            if path[i-1][changes[0]] == 0:
+                explanation = "empty the {} bucket".format(sizes[changes[0]])
+            else:
+                explanation = "fill the {} bucket".format(sizes[changes[0]])
         else:
             # find the buckets that lost and won water
             l = changes[0] if path[i-1][changes[0]] < path[i][changes[0]] else changes[1]
@@ -58,7 +67,7 @@ def print_solution(sizes, path):
     print("Done!")
           
 # The buckets' capacities in a list
-buckets = [3, 5, 8]
+buckets = [3, 5]
 # Target value, in the same unit as the buckets' capacities
 T = 4
 solve(buckets, T)
