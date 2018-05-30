@@ -1,0 +1,121 @@
+Hey, for you to better understand the program I figured that I should simulate a session with the iTrader.
+
+Just open it up. If it is the first time, ignore the "Could not load data" and type your nick.
+
+now off to the interactive session. First, I advise you to read the README.txt that comes with the package.
+
+Now for the commands:
+(Lines starting with $ are things you should type. EVERYTHING except for the $)
+
+Start of by asking the program what my ID must be... Use the find command for this!
+
+$find Rojer97
+
+and it prints the top results. you can find my ID there!
+register me in your database
+
+$register 6328829 Rojer97 -n Rojer97 -i good guy, created this program
+
+That stored my ID in the database, along with my IRC nick (-n flag) and some chaty chat with the -i flag.
+
+now if you type
+
+$check 6328829
+
+The program will tell you that the given ID is registered
+
+Now you are going to buy 340 weapons Q7 from me, at 9.7 a piece...
+But how much is that??
+
+$calc 340*9.7
+
+And the program prints 3298. Sometimes, the program could say something like 3297.9999999999995
+That is because computers have always had problems with decimals... In a future update I'll fix
+ the print to prevent this.
+
+So, if the cost for 340 is 3298, and you were to buy me that, you could register the trade:
+
+$trade buy 6328829 wq7 340 3298
+
+and you would get some nice information printed.
+after this, your log file is not empty anymore, so you can use the <log> command to check your trades!
+You only have one, but lets check "all of them"
+
+$log all
+
+Now, if you type
+
+$print
+
+you current stock is printed and your profit too. Well, it is a negative one, so let's sell something!
+You found this guy willing to pay 3400 for your 340 weapons! Sweet! Let's pretend his ID is 9999999
+
+$trade sell 9999999 wq7 340 3400
+
+Now the program tells you you have 102cc profit and you are out of stock! But let's save that profit!
+(Now you can either actually buy the gold or not, but to remove the profit from the counter, you use this next command:)
+At a rate of +/- 200cc/g, we could say you can get 0.5 gold for 100 CC.
+
+$convert 0.5 100
+
+Well, with so many commands you already forgot what you typed about me! Easy! Know my name?
+ It was Rojer something, right?
+
+$search Rojer
+
+And the program tells you about every entry that has "Rojer" somewhere in its data.
+ You get my id and type:
+
+$print 6328829
+
+And it tells you about me!
+Now if you would like to update my information, do:
+
+$register -u 6328829 Rojer97 -n Rojer97 -i I like this guy!
+
+Try to issue that command without the (-u) part. It will yell at you because I already exist!
+Also try this:
+
+$register -u 6328829 Rojer
+$print 6328829
+
+Notice that altough you only changed my nick, since all the other things were missing,
+ they were updated to be nothing!
+
+Now why don't you use <find> to search for some of your most usual costumers
+and use the register command to register them!
+after that, try this command:
+
+$list
+
+Now you can also do another thing! You can use the search command to sort the results alphabetically or numerically.
+
+$search (something to search for) -a
+
+That sorts alphabetically.
+
+$search (...) -n
+
+Numerically.
+Trying
+
+$search (...) -n -a OR $search (...) -na
+ 
+will just make the program yell at you :D
+
+Type help to find all the commands there are:
+
+$help
+
+If you forget the syntax of a command, type the command and a <-h> like this:
+
+$trade -h
+
+That way you can see the position of each argument!
+
+Now that you are done with all the commands, use the last one! The exit one!
+
+$exit
+
+Now I advise you to erase the files itrade.data, itrade_traders.data
+ and itrade_trades.log, and to run the program again just to set your name!

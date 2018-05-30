@@ -1,0 +1,18 @@
+changelog:
+19/07/2014
+
+print command accepts again 0 arguments for the stock print
+added find command that queries a search in erepublik for a given nick
+added list command that lists all traders in your database
+added -n and -a flags for the search command:
+  -n sorts numerically (IDs)
+  -a sorts alphabetically (nicks)
+  defaults to -n
+tweaked the program not to close abruptly on you
+  now if an error occurs, you have the chance to take a print screen and send it to me
+
+
+TO ADD:
+
+Add an <update> command to update your stocks
+extend the <find>'s info printings. (strength, CS, exp)
