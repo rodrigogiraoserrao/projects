@@ -1,3 +1,9 @@
+"""
+A small script that produces a pygame animation that helps visualize
+    what the winding number of a continuous mapping is
+(cf. https://mathspp.blogspot.com/2018/07/pocket-maths-hairy-ball-theorem.html )
+"""
+
 from pygame.locals import *
 import pygame
 import sys
