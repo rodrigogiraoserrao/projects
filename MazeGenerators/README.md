@@ -1,7 +1,7 @@
 Maze Generation
 ===============
 
-This folder has some scripts that generate files, using two different algorithms.
+This folder has some scripts that generate mazes, using two different algorithms.
 
 `mazegenerator.py` generates mazes randomly by creating a tree with a graph-search algorithm; `config.ini` configures the size and aspect of such mazes.
 
