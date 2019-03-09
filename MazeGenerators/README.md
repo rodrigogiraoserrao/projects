@@ -3,7 +3,7 @@ Maze Generation
 
 This folder has some scripts that generate mazes, using two different algorithms.
 
-`mazegenerator.py` generates mazes randomly by creating a tree with a graph-search algorithm; `config.ini` configures the size and aspect of such mazes.
+`mazegenerator.py` generates mazes randomly by creating a tree with a graph-search algorithm; `config.ini` configures the size and aspect of such mazes. I shared this algorithm in [this](http://mathspp.blogspot.com/2018/06/random-maze-generation.html) blog post.
 
 The three `.py` files that start with `wilson_` use [Wilson's algorithm](https://en.wikipedia.org/wiki/Loop-erased_random_walk) to create the maze.
  - `wilson_generator.py` ~~equires Python 3.7~~ (used to require Python3.7 but then I couldn't find a way to freeze it, so now it) runs with Python3 and pygame. The file `wilsonconfig.ini` configures the size of the maze and possibly the directory to which screenshots will be saved. The controls are as follows:
