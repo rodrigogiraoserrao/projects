@@ -14,6 +14,6 @@ The three `.py` files that start with `wilson_` use [Wilson's algorithm](https:/
  - `wilson_generator_bad.py` is the prototyped version of `wilson_generator.py`. It is less efficient and it starts flooding the maze as soon as the maze is built.
  - `wilson_generator_partial.py` is the same as `wilson_generator_bad.py` except that it only refreshes the image when you hit the spacebar
  
- In the `bin` you can find some sample mazes created by the two programs.
+ In the `bin` you can find some sample mazes created by the two programs, like the one below:
 
 ![A massive 600x450 maze](./bin/ss_22_22_15_090319.png)
