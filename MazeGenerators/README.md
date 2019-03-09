@@ -15,3 +15,5 @@ The three `.py` files that start with `wilson_` use [Wilson's algorithm](https:/
  - `wilson_generator_partial.py` is the same as `wilson_generator_bad.py` except that it only refreshes the image when you hit the spacebar
  
  In the `bin` you can find some sample mazes created by the two programs.
+
+!(alt text)[./bin/ss_22_22_15_090319.png A massive maze]
