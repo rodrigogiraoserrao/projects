@@ -6,7 +6,6 @@ import configparser
 import pygame
 from pygame.locals import *
 from random import choice
-from dataclasses import dataclass
 
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
@@ -14,7 +13,7 @@ BLACK = (0, 0, 0)
 BLUE = (20, 90, 200)
 ORANGE = (200, 130, 20)
 
-@dataclass(init=False)
+'''@dataclass(init=False)
 class Configurations:
     # set the relevant configurations and the default values
     WIDTH: int = 20
@@ -36,9 +35,33 @@ class Configurations:
         # load the values
         for var in vs:
             # read each parameter and evaluate it to its type
+            setattr(self, var, eval(c["DEFAULT"][var]))'''
+            
+class Configurations(object):
+    # set the relevant configurations and the default values
+    WIDTH = 20
+    HEIGHT = 20
+    CELLSIZE = 5
+    SCREENSHOT_BIN = ""
+    SAVE_FRAMES = False
+    
+    def __init__(self, configfile):
+        """Handle the initial configurations"""
+        c = configparser.ConfigParser()
+        r = c.read(configfile)
+        vs = ["WIDTH", "HEIGHT", "CELLSIZE", "SCREENSHOT_BIN", "SAVE_FRAMES"]
+        if not r:
+            print("creating default")
+            # create the configfile
+            c["DEFAULT"] = {var: getattr(self, var) for var in vs}
+            with open(configfile, "w") as f:
+                c.write(f)
+        # load the values
+        for var in vs:
+            # read each parameter and evaluate it to its type
             setattr(self, var, eval(c["DEFAULT"][var]))
 
-def get_next_start() -> list:
+def get_next_start():
     """Generator expression that yields the next cell
         at which a random path should start"""
     x, y = -1, 1
@@ -54,7 +77,7 @@ def get_next_start() -> list:
         if mazedata[x][y] == 0:
             yield [x, y]
 
-def get_random_direction(x: int, y: int) -> list:
+def get_random_direction(x, y):
     """Given a position on the maze, returns with uniform probability,
         any possible direction in which the maze could expand"""
     poss_directions = []
@@ -69,7 +92,7 @@ def get_random_direction(x: int, y: int) -> list:
         poss_directions.append([0, -1])
     return choice(poss_directions)
 
-def update(x: int, y: int, val: int) -> None:
+def update(x, y, val):
     """Updates the cell (x,y) to the type val
         Also updates its display on the screen"""
     mazedata[x][y] = val
@@ -81,18 +104,18 @@ def update(x: int, y: int, val: int) -> None:
     pygame.draw.rect(screen, colors[val], rectangles[x][y], 0)
     toUpdate.append(rectangles[x][y])
 
-def erase_self_loop(target: list) -> None:
+def erase_self_loop(target):
     """Erases the self-intersecting loop of the current path"""
     while pathStack[-1] != target:
         x, y = pathStack.pop()
         update(x, y, 0)
 
-def accept_walk() -> None:
+def accept_walk():
     """Marks the current path as part of the maze"""
     for x, y in pathStack:
         update(x, y, 2)
 
-def colour_sequence(c1: tuple, c2: tuple) -> list:
+def colour_sequence(c1, c2):
     """Given two colours, create a degradee from c1 to c2 and back"""
     cs = [list(c1)]
     # from c1 to c2 and then c2 to c1
@@ -164,7 +187,6 @@ flooding_next = []  # vertices that will be checked in the next iter
 directions = [[1,0],[-1,0],[0,1],[0,-1]]
 
 frame = 0
-
 while True:
     for ev in pygame.event.get():
         # trying to exit the program
@@ -174,18 +196,19 @@ while True:
         elif ev.type == KEYDOWN:
             if ev.key == K_s:
                 # take a screenshot
-                filename = f"ss_{time.strftime('%H_%M_%S_%d%m%y')}.png"
+                filename = "ss_{}.png".format(time.strftime('%H_%M_%S_%d%m%y'))
                 filename = os.path.join(confs.SCREENSHOT_BIN, filename)
                 pygame.image.save(screen, filename)
-                pygame.display.set_caption(f"screenshot saved in {filename}")
+                pygame.display.set_caption("screenshot saved in {}".format(filename))
             elif ev.key == K_f:
                 if finishedBuilding and not (floodingMaze or finishedFlooding):
                     floodingMaze = True
 
     if buildingMaze:
-        filename = "frames/frame{:05}.png".format(frame)
-        pygame.image.save(screen, filename)
-        frame += 1
+        if confs.SAVE_FRAMES:
+            filename = "frames/frame{:05}.png".format(frame)
+            pygame.image.save(screen, filename)
+            frame += 1
         dx, dy = d = get_random_direction(x, y)
         midx, midy = mid_position = [currently_at[i] + d[i] for i in range(2)]
         nx, ny = next_pos = [currently_at[i] + 2*d[i] for i in range(2)]
