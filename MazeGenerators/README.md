@@ -16,4 +16,4 @@ The three `.py` files that start with `wilson_` use [Wilson's algorithm](https:/
  
  In the `bin` you can find some sample mazes created by the two programs.
 
-!(alt text)[./bin/ss_22_22_15_090319.png A massive maze]
+![A massive 600x450 maze](./bin/ss_22_22_15_090319.png A massive maze)
