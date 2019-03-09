@@ -42,7 +42,7 @@ class Configurations(object):
     WIDTH = 20
     HEIGHT = 20
     CELLSIZE = 5
-    SCREENSHOT_BIN = ""
+    SCREENSHOT_BIN = '""'
     SAVE_FRAMES = False
     
     def __init__(self, configfile):
@@ -51,7 +51,6 @@ class Configurations(object):
         r = c.read(configfile)
         vs = ["WIDTH", "HEIGHT", "CELLSIZE", "SCREENSHOT_BIN", "SAVE_FRAMES"]
         if not r:
-            print("creating default")
             # create the configfile
             c["DEFAULT"] = {var: getattr(self, var) for var in vs}
             with open(configfile, "w") as f:
