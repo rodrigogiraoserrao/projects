@@ -1,4 +1,4 @@
-module TruthTables where
+module Tautologies where
 
     -- to remove duplicates from a list
     import Data.List (nub)
