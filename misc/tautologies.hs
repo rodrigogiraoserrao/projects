@@ -19,7 +19,7 @@ module Tautologies where
     collectVars :: Prop -> [String]
     collectVars (Const  _   ) = []
     collectVars (Var    s   ) = [s]
-    collectVars (Neg    prop) = nub $collectVars prop
+    collectVars (Neg    prop) = nub $ collectVars prop
     -- these four patterns are rather annoying
     collectVars (And    p1 p2) = nub $ (collectVars p1) ++ (collectVars p2)
     collectVars (Or     p1 p2) = nub $ (collectVars p1) ++ (collectVars p2)
@@ -41,17 +41,26 @@ module Tautologies where
             prevTables = allTruthTables (n-1)
 
     -- given a proposition and an attribution, return its truth value
-    -- (TODO) could be nice to implement the binary operators with short-circuiting logic
     truthValue :: Prop -> Attribution -> Maybe Bool
     truthValue (Const bool) _ = Just bool
     truthValue (Var   v   ) attrs = lookup v attrs
     truthValue (Neg   p   ) attrs = not <$> (truthValue p attrs)
-    truthValue (And   p1 p2) attrs = (&&) <$> (truthValue p1 attrs) <*> (truthValue p2 attrs)
-    truthValue (Or    p1 p2) attrs = (||) <$> (truthValue p1 attrs) <*> (truthValue p2 attrs)
-    truthValue (Equiv p1 p2) attrs = (==) <$> (truthValue p1 attrs) <*> (truthValue p2 attrs)
+    -- implement short-circuiting for the And, Or and Impl propositions
+    truthValue (And   p1 p2) attrs
+        | valuep1 == (Just False) = Just False
+        | otherwise               = (&&) <$> valuep1 <*> (truthValue p2 attrs)
+        where valuep1 = truthValue p1 attrs
+    truthValue (Or    p1 p2) attrs
+        | valuep1 == (Just True) = Just True
+        | otherwise              = (||) <$> valuep1 <*> (truthValue p2 attrs)
+        where valuep1 = truthValue p1 attrs
     -- maybe it is cheating, but b1 <= b2 as "less than or equal to" evaluates to the same thing
     -- as "b1 implies b2"!
-    truthValue (Impl  p1 p2) attrs = (<=) <$> (truthValue p1 attrs) <*> (truthValue p2 attrs)
+    truthValue (Impl  p1 p2) attrs
+        | valuep1 == (Just False) = Just True
+        | otherwise               = (<=) <$> valuep1 <*> (truthValue p2 attrs)
+        where valuep1 = truthValue p1 attrs
+    truthValue (Equiv p1 p2) attrs = (==) <$> (truthValue p1 attrs) <*> (truthValue p2 attrs)
 
     -- given a proposition, evaluate it at all of its attributions
     extensiveEvaluation :: Prop -> [Bool]
