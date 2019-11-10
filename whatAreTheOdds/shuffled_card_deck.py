@@ -8,9 +8,11 @@ cards = [i for i in range(13)] * 4
 
 trials = pow(10, 6)
 
-all_different = 0
-two_in_a_row = 0
-found = False
+all_different = 0   # count how many times the deck *does not* have two equal cards in a row
+two_in_a_row = 0    # count how many times the deck has two equal cards in a row
+pair_counter = 0    # count how many of these pairs are found in a shuffled deck
+how_many_pairs = [] # the history of how many pairs per deck for some stats
+three_in_a_row = 0  # count how many times the deck has three equal cards in a row
 
 # estimate the probability that a thoroughly shuffled deck contains any two cards in a row with the same value
 for i in range(trials):
@@ -19,13 +21,23 @@ for i in range(trials):
     shuffle(cards)
     for j in range(len(cards) - 1):
         if cards[j] == cards[j+1]:
-            found = True
-            two_in_a_row += 1
-            break
-    if not found:
+            pair_counter += 1
+            # only increment the "two in a row" counter if this is the first pair of this deck
+            if pair_counter == 1:
+                two_in_a_row += 1
+            if j < len(cards) - 2 and cards[j] == cards[j+2]:
+                three_in_a_row += 1
+    if not pair_counter:
         all_different += 1
-    found = False
+    else:
+        how_many_pairs.append(pair_counter)
+    pair_counter = 0
     
 print(all_different + two_in_a_row)
 print(f"{round(100*all_different/trials, 2)}% of all shuffles had no two equal cards in a row")
 print(f"{round(100*two_in_a_row/trials, 2)}% of all shuffles had two or more cards in a row, once or more times")
+print(f"{round(100*three_in_a_row/trials, 2)}% of all shuffles had three or more cards in a row, once or more times")
+
+print()
+for i in range(1, 11):
+    print(f"{i:02} : {round(100*how_many_pairs.count(i)/trials, 2)}%")
