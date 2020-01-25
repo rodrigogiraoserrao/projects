@@ -66,7 +66,7 @@ def evaluate(
 
                 look_to += 1
 
-            if look_to == len(code):
+            if nesting_level:
                 raise Exception("Reached brainfck EOF.")
             
             while memory[ptr]:
@@ -82,10 +82,20 @@ def evaluate(
     return memory, ptr, inp, out
 
 if __name__ == "__main__":
+    """If ran as `python brainfck.py` the program starts a REPL loop.
+    If ran as `python brainfck.py filename`,
+        reads the brainfck code from the given file.
+    """
 
-    while (s := input(" >> ")):
-        memory, ptr, inp, out = interpret(s)
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+        with open(filename) as f:
+            code = f.read()
+            memory, ptr, inp, out = interpret(code)
+    else:
+        while (code := input(" >> ")):
+            memory, ptr, inp, out = interpret(code)
 
-        print(f"""output: '{out}'.
-memory layout: {memory}
-pointer @ position {ptr}, input left to consume: '{inp}'""")
+    print(f"""output: '{out}'.
+    memory layout: {memory}
+    pointer @ position {ptr}, input left to consume: '{inp}'""")
