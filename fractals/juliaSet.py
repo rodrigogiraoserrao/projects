@@ -4,8 +4,10 @@ import math
 
 pygame.init()
 
-WIDTH = 600
-HEIGHT = 600
+WIDTH = 800
+HEIGHT = 800
+
+ITERS_PER_POINT = 100
 
 done = []
 i = -1
@@ -18,7 +20,7 @@ def factory(c):
 """
     
 def hue(x):
-    return 200/math.exp(x/50)
+    return 200/math.exp(x/ITERS_PER_POINT)
     
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -39,7 +41,7 @@ def populate(cx, cy):
         for y in range(HEIGHT):
             i = 0
             res = complex(x_left + (x/WIDTH)*x_width, y_bottom + (y/HEIGHT)*y_height)
-            while i < 50 and abs(res) < cap:
+            while i < ITERS_PER_POINT and abs(res) < cap:
                 res = res*res + c
                 i += 1
             if abs(res) < 2:

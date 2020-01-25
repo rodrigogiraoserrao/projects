@@ -4,8 +4,10 @@ import math
 
 pygame.init()
 
-WIDTH = 200
-HEIGHT = 200
+WIDTH = 800
+HEIGHT = 800
+
+ITERS = 75
 
 """
 def factory(c):
@@ -14,8 +16,8 @@ def factory(c):
     return func
 """
     
-def hue(x):
-    return 360/math.exp(x/50)
+def hue(x, iters):
+    return 360/math.exp(x/iters)
     
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -31,12 +33,13 @@ def populate():
     global pxarray
     C = pygame.Color(0,0,0)
     cap = max(8, (10^9)/(zoom*zoom))
+    max_iters = ITERS + zoom^2
     for x in range(WIDTH):
         for y in range(HEIGHT):
             c = complex(x_left + (x/WIDTH)*x_width, y_bottom + (y/HEIGHT)*y_height)
             i = 0
             res = 0
-            while i < 50 + (zoom^2) and abs(res) < cap:
+            while i < ITERS + (zoom^2) and abs(res) < cap:
                 res = res*res + c
                 i += 1
             if abs(res) < 2:
@@ -46,7 +49,7 @@ def populate():
                 c = colour(i)
                 pxarray[x, y] = (c, c, 255-c)
                 """
-                C.hsva = (hue(i), 50, 50, 100)
+                C.hsva = (hue(i, max_iters), 50, 50, 100)
                 pxarray[x, y] = C
         pygame.display.update()
             
