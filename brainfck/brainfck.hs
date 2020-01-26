@@ -65,3 +65,8 @@ module Brainfck where
             nest partial memLeft   0 memRight inp out = (memLeft, 0, memRight, inp, out)
             nest partial memLeft ptr memRight inp out = let (nestMemLeft, nestPtr, nestMemRight, nestInp, nestOut) = evaluate partial memLeft ptr memRight inp out
                                                         in nest partial nestMemLeft nestPtr nestMemRight nestInp nestOut
+
+    main = do
+            putStr " (brainfck input) >> "
+            inp <- getLine
+            putStrLn $ show $ interpret ",[.,]" inp
