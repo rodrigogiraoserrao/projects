@@ -43,14 +43,6 @@ while True:
     if new_digit != "":
         first_line += r" \!\downarrow"
 
-
-    print("Want to get new digit")
-    print(f"left: {left}")
-    print(f"using: {using}")
-    print(f"new digit: {new_digit}")
-    print(f"power offset: {power_offset}")
-    print(f"print offset: {printing_offset}")
-
     zero_offset = len(str(using)) - len(str(diff))
     second_line = r"& \hphantom{" + "0"*printing_offset + r"}" + "0"*zero_offset + f"{diff}" + str(new_digit)
     body.append(first_line)
@@ -65,8 +57,6 @@ while True:
 
     using = diff*10 + new_digit
     left %= pow(10, power_offset)
-
-    print("#"*30)
 
 # Add the quotient to the first line of the algorithm
 body[0] += r"\hphantom{" + "0"*(dividend_length - 2) + r"} \,\,\," + built_quotient
