@@ -1,1 +1,0 @@
-# memory layout | 0 | 0 | cell with if test result |
