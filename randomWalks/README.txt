@@ -1,5 +1,4 @@
-You can check this link to read a little about these:
-https://mathspp.blogspot.pt/2017/10/random-walk-simulations.html
+You can check [this link](https://mathspp.com/blog/random-walk-simulations) to read a little about these:
 
 Windows executables can be found here:
 https://drive.google.com/open?id=0ByBeLS6ciLYVX1k0M2Z2Z2RjYkU
