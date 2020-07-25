@@ -168,8 +168,14 @@ def tokenize(s):
     tokens.append((Token.EOF, "eof"))
 
     i = 0
+    parse = True
     while i < len(tokens):
-        if tokens[i][0] == Token.LCURLY:
+        if tokens[i][0] == Token.LCHOOSE:
+          parse = False
+        if tokens[i][0] == Token.RCHOOSE:
+          parse = True
+        
+        if tokens[i][0] == Token.LCURLY and parse:
             l, r, j = 0, 0, i+1
             acc = ""
             while j < len(tokens) and tokens[j][0] == Token.DIGIT:
