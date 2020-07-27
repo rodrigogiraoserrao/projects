@@ -68,11 +68,11 @@ def replace_yaml_header(filepath, new_header):
     replace_with = (
         "---\n" +
         yaml.dump(new_header, default_flow_style=False, allow_unicode=True) +
-        "---\n"
+        "---\n\n"
     ) if new_header else ""
     with open(filepath, "r+", encoding="utf-8") as f:
         contents = f.read()
-        contents = re.sub(r"^---\n((.|\n)*?\n)---\n", replace_with, contents)
+        contents = re.sub(r"^---\n((.|\n)*?\n)---\n+", replace_with, contents)
         f.seek(0)
         f.truncate()
         f.write(contents)
