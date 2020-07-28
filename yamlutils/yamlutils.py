@@ -1,4 +1,6 @@
-"""Utility script to manage YAML headers in my site (https://mathspp).
+"""Utility script to manage YAML headers in my site (https://mathspp.com).
+
+You can read about it @ https://mathspp.com/blog/yamlutils.
 """
 
 import argparse
