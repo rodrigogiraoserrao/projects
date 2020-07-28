@@ -137,7 +137,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("folder", help="Folder in which to process YAML merging")
-    parser.add_argument("-r", action="store_true", help="Merge recursively in the folder.")
+    parser.add_argument("-r", action="store_true", help="Traverse the directory tree recursively")
 
     args = parser.parse_args()
     merge_yaml(args.folder, recursive=args.r)
