@@ -15,7 +15,7 @@ def recursively_trim_empty(d):
             subresult = recursively_trim_empty(value)
             if subresult:
                 result[key] = subresult
-        elif value:
+        elif value != {}:
             result[key] = value
     return result
 
@@ -77,10 +77,14 @@ def replace_yaml_header(filepath, new_header):
         f.truncate()
         f.write(contents)
 
-def merge_yaml(folderpath):
+def merge_yaml(folderpath, *, recursive):
     """Merge yaml header data from *.*.md files."""
 
-    hits = list({tuple(p.parent.glob("*.*.md")) for p in Path(folderpath).rglob("*.*.md")})
+    if recursive:
+        hits = list({tuple(p.parent.glob("*.*.md")) for p in Path(folderpath).rglob("*.*.md")})
+    else:
+        hits = [tuple(Path(folderpath).glob("*.*.md"))]
+    hits = filter(bool, hits)
     count = 0
     for hit in hits:
         # parse the YAML headers from all the files.
@@ -122,7 +126,8 @@ def merge_yaml(folderpath):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("folder")
+    parser.add_argument("folder", help="Folder in which to process YAML merging")
+    parser.add_argument("-r", action="store_true", help="Merge recursively in the folder.")
 
     args = parser.parse_args()
-    merge_yaml(args.folder)
+    merge_yaml(args.folder, recursive=args.r)
