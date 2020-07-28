@@ -67,7 +67,10 @@ def replace_yaml_header(filepath, new_header):
 
     replace_with = (
         "---\n" +
-        yaml.dump(new_header, default_flow_style=False, allow_unicode=True) +
+        yaml.dump(
+            new_header, indent=4, block_seq_indent=2,
+            default_flow_style=False, allow_unicode=True
+        ) +
         "---\n\n"
     ) if new_header else ""
     with open(filepath, "r+", encoding="utf-8") as f:
@@ -98,20 +101,26 @@ def merge_yaml(folderpath, *, recursive):
             lambda p: p.exists(),
             [hit[0].with_name("frontmatter.yaml"), hit[0].with_name("frontmatter.yml")]
         ))
+        y = None
         if files:
             with open(files[0], "r", encoding="utf-8") as f:
                 y = yaml.safe_load(f)
             dumpto = files[0]
         else:
-            y = {}
             dumpto = hit[0].with_name("frontmatter.yaml")
+        if y is None:
+            y = {}
 
+        print(y)
         dump = recursive_dict_union(y, collected)
         if not dump:
             continue
 
         with open(dumpto, "w", encoding="utf-8") as f:
-            yaml.dump(dump, f, default_flow_style=False, allow_unicode=True)
+            yaml.dump(
+                dump, f, indent=4, block_seq_indent=2,
+                default_flow_style=False, allow_unicode=True,
+            )
 
         # go back and remove what was extracted.
         for h in hit:
