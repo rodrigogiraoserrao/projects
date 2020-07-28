@@ -111,7 +111,6 @@ def merge_yaml(folderpath, *, recursive):
         if y is None:
             y = {}
 
-        print(y)
         dump = recursive_dict_union(y, collected)
         if not dump:
             continue
