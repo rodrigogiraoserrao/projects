@@ -1,4 +1,6 @@
-This repo contains a maze solver, which is in Solver.py
+This repo contains a maze solver.
+
+You can read about it [in my blog](https://mathspp.com/blog/solving-mazes-with-programming)
 
 Using it is really simple but you need both Pillow and pygame; for those reasons I made a standalone executable. You execute either
 the .py or the .exe and it will ask you for the path of the maze you want to solve (an image). After that you click the
