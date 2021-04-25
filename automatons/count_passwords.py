@@ -42,8 +42,8 @@ if __name__ == "__main__":
         string.ascii_uppercase,
         string.digits,
     ]
-    MIN_LENGTH = 8
-    MAX_LENGTH = 10
+    MIN_LENGTH = 6
+    MAX_LENGTH = 8
     # Predicates:
     predicates = [
         lambda s: MIN_LENGTH <= sum(s) <= MAX_LENGTH,   # valid length?
