@@ -6,11 +6,11 @@ that satisfy a series of different restrictions, namely:
  - restrictions on minimum and maximum usages of several types of characters.
 """
 
-import string
+import string, time
 from automaton import Automaton
 
-def generate_next_pwd_states(state):
-    return [state[:i] + (num+1,) + state[i+1:] for i, num in enumerate(state)]
+def generate_next_pwd_states(s):
+    return [s[:i] + (num+1,) + s[i+1:] for i, num in enumerate(s)]
 
 def generate_state_transitions(classes, max_length):
     queue = [(0,) * len(classes)]
@@ -34,13 +34,16 @@ def gather_terminal_states(state_transitions, is_valid_pwd):
 
 
 if __name__ == "__main__":
+    # Solve https://math.stackexchange.com/q/2452401/329832,
+    # which should give 2,684,483,063,360
+
     # Configure the password:
     classes = [
         string.ascii_uppercase,
         string.digits,
     ]
-    MIN_LENGTH = 6
-    MAX_LENGTH = 8
+    MIN_LENGTH = 8
+    MAX_LENGTH = 10
     # Predicates:
     predicates = [
         lambda s: MIN_LENGTH <= sum(s) <= MAX_LENGTH,   # valid length?
@@ -52,4 +55,7 @@ if __name__ == "__main__":
     terminal_states = gather_terminal_states(state_transitions, is_valid_pwd)
 
     automaton = Automaton(state_transitions, terminal_states)
+    start = time.time()
     print(automaton.count_terminal_paths((0,) * len(classes)))
+    elapsed = time.time() - start
+    print(f"Counted in {round(elapsed, 3)}s.")
