@@ -29,15 +29,16 @@ class Automaton:
         if state not in self._count_terminal_paths_cache:
             acc = int(self.is_terminal(state))
             for actions, next_state in self._state_transitions.get(state, []):
-                acc += len(actions)*self.count_terminal_paths(next_state)
+                acc += len(actions) * self.count_terminal_paths(next_state)
             self._count_terminal_paths_cache[state] = acc
         return self._count_terminal_paths_cache[state]
 
 if __name__ == "__main__":
     transitions = {
-        0: [("ab", 1), ("AB", 1)],
+        0: [("ab", 1)],
         1: [("ab", 2)],
         2: [("ab", 3)],
+        3: [],
     }
     terminal_states = [1, 2, 3]
     automaton = Automaton(transitions, terminal_states)
