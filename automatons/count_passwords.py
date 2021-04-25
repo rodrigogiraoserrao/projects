@@ -58,4 +58,4 @@ if __name__ == "__main__":
     start = time.time()
     print(automaton.count_terminal_paths((0,) * len(classes)))
     elapsed = time.time() - start
-    print(f"Counted in {round(elapsed, 3)}s.")
+    print(f"Counted in {round(elapsed, 4)}s.")
