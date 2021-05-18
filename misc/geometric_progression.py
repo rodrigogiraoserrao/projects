@@ -1,8 +1,6 @@
 """
-Simple example of using __getitem__ to define indexing/slicing
-for custom objects.
-Read the article https://mathspp.com/blog/pydonts/inner-workings-of-sequence-slicing
-for more information.
+Simple example of using __getitem__ to define indexing/slicing for custom objects.
+Read the article https://mathspp.com/blog/pydonts/inner-workings-of-sequence-slicing for more information.
 """
 
 import sys
