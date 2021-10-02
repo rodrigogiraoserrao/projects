@@ -6,11 +6,14 @@ that satisfy a series of different restrictions, namely:
  - restrictions on minimum and maximum usages of several types of characters.
 """
 
-import string, time
+import string
+import time
 from automaton import Automaton
 
+
 def generate_next_pwd_states(s):
-    return [s[:i] + (num+1,) + s[i+1:] for i, num in enumerate(s)]
+    return [s[:i] + (num + 1,) + s[i + 1 :] for i, num in enumerate(s)]
+
 
 def generate_state_transitions(classes, max_length):
     queue = [(0,) * len(classes)]
@@ -18,16 +21,12 @@ def generate_state_transitions(classes, max_length):
 
     while queue:
         state, *queue = queue
-        if sum(state) < max_length:
-            next_states = generate_next_pwd_states(state)
-        else:
-            next_states = []
+        next_states = generate_next_pwd_states(state) if sum(state) < max_length else []
         state_transitions[state] = list(zip(classes, next_states))
-        for state_ in next_states:
-            if state_ not in queue:
-                queue.append(state_)
+        queue.extend(state_ for state_ in next_states if state_ not in queue)
 
     return state_transitions
+
 
 def gather_terminal_states(state_transitions, is_valid_pwd):
     return [s for s in state_transitions if is_valid_pwd(s)]
@@ -46,8 +45,8 @@ if __name__ == "__main__":
     MAX_LENGTH = 8
     # Predicates:
     predicates = [
-        lambda s: MIN_LENGTH <= sum(s) <= MAX_LENGTH,   # valid length?
-        lambda s: s[1],                                 # has a digit?
+        lambda s: MIN_LENGTH <= sum(s) <= MAX_LENGTH,  # valid length?
+        lambda s: s[1],  # has a digit?
     ]
     is_valid_pwd = lambda s: all(pred(s) for pred in predicates)
 

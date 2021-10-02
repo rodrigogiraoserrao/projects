@@ -1,5 +1,9 @@
+import random
+
+
 class Automaton:
     """Class that represents a finite state automaton."""
+
     def __init__(self, state_transitions, terminal_states):
         """Initialises a finite state automaton.
 
@@ -32,6 +36,20 @@ class Automaton:
                 acc += len(actions) * self.count_terminal_paths(next_state)
             self._count_terminal_paths_cache[state] = acc
         return self._count_terminal_paths_cache[state]
+
+    def walk_random_path(self, state):
+        """Generate a random action path through the automaton state space."""
+        if self.is_terminal(state):
+            return
+
+        transitions = self._state_transitions.get(state, [])
+        weights = [len(a) * self.count_terminal_paths(s) for a, s in transitions]
+        next_state_index = random.choices(range(len(transitions)), weights)[0]
+        # Yield a random action that would take us to the next state.
+        yield random.choice(transitions[next_state_index][0])
+        # Yield the remainder of the random path.
+        yield from self.walk_random_path(transitions[next_state_index][1])
+
 
 if __name__ == "__main__":
     transitions = {
