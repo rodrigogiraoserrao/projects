@@ -1,3 +1,8 @@
+"""
+Solving Wordle puzzles with Python.
+See https://mathspp.com/blog/solving-wordle-with-python for an article on this.
+"""
+
 import collections, random
 
 with open("WORD.LST", "r") as f:
