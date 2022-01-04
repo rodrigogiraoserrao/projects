@@ -1,3 +1,8 @@
+"""
+Solving Wordle puzzles with Python.
+See https://mathspp.com/blog/solving-wordle-with-python for an article on this.
+"""
+
 import collections
 import enum
 import random
@@ -82,6 +87,7 @@ def play_against_computer(words):
         sc = score(secret, guess)
         print(f"\tMy guess scored {sc}...")
         words = filter_words(words, guess, sc)
+        print()
 
     return words
 
@@ -92,13 +98,14 @@ def play_with_computer(words):
     words = [word for word in words if len(word) == length]
 
     mapping = {"0": Tip.ABSENT, "1": Tip.PRESENT, "2": Tip.CORRECT}
-    print(f"NOTE: when typing scores, use {mapping}.")
+    print(f"\nNOTE: when typing scores, use {mapping}.\n")
     while len(words) > 1:
         guess = get_random_word(words)
         print("How did this guess score?")
         user_input = input(">>> ")
         sc = [mapping[char] for char in user_input if char in mapping]
         words = filter_words(words, guess, sc)
+        print()
 
     return words
 
