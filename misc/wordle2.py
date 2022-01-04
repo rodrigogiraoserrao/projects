@@ -5,7 +5,7 @@ with open("WORD.LST", "r") as f:
 
 while len(words) > 1:
     print(f"Try {(guess := random.choice(words))!r}.")
-    score = [int(char) for char in input(">>> ")]  # 0 for ABSENT, 1 for PRESENT, and 2 for CORRECT.
+    score = [int(char) for char in input(">>> ") if char in "012"]  # 0 for ABSENT, 1 for PRESENT, and 2 for CORRECT.
     words_ = []
     for word in words:
         pool = collections.Counter(c for c, sc in zip(word, score) if sc != 2)
