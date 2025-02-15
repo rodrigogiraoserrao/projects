@@ -1,6 +1,6 @@
 # Tupper's self-referential formula
 
-This project is accompanyed by [this blog post](https://mathspp.blogspot.com/2019/04/the-formula-that-plots-itself.html).
+This project is accompanyed by [this blog post](https://mathspp.com/blog/the-formula-that-plots-itself).
 
 ---
 
